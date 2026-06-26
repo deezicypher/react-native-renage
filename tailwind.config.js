@@ -4,6 +4,10 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      borderRadius: {
+        "4xl": "2rem", // 32px
+        "5xl": "2.5rem", // optional
+      },
       colors: {
         background: "#fff9e3",
         foreground: "#081126",

@@ -1,11 +1,11 @@
-import { Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
 export default function Index() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-xl font-bold text-success">
-        Welcome to Nativewind!
-      </Text>
-    </View>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/");
+  }, [router]);
+
+  return null;
 }
