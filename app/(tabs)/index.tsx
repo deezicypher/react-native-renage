@@ -7,7 +7,7 @@ import images from "@/constants/images";
 import { formatCurrency } from "@/libs/utils";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -25,10 +25,10 @@ export default function Index() {
         <Image source={icons.add} className="size-12" />
       </View>
 
-    <ScrollView
-    showsVerticalScrollIndicator={false}
+    <View
+
     >
-      <View className="my-2.5 min-h-52 justify-between gap-5 rounded-bl-4xl rounded-tr-4xl bg-accent p-6">
+      <View className="my-2.5  min-h-52 justify-between gap-5 rounded-bl-4xl rounded-tr-4xl bg-accent p-6">
         <Text className="text-xl font-sans-semibold text-white/80">
           Balance
         </Text>
@@ -57,14 +57,24 @@ export default function Index() {
             />
       
         <ListHeading title="All Subscriptions"/>
-              <SubCard 
-              {...HOME_SUBSCRIPTIONS[0]} 
-              expanded={expandedSubsriptionId === HOME_SUBSCRIPTIONS[0].id}
-              onPress={() => setExpandedSubscriptionId(expandedSubsriptionId === HOME_SUBSCRIPTIONS[0].id ? null : HOME_SUBSCRIPTIONS[0].id)}
-              />
-                
+              <FlatList
+                data={HOME_SUBSCRIPTIONS}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => (
+                <SubCard 
+                {...item} 
+                expanded={expandedSubsriptionId === item.id}
+                onPress={() => setExpandedSubscriptionId(expandedSubsriptionId === item.id ? null : item.id)}
+                />
+                )}
+                extraData={expandedSubsriptionId}
+                ItemSeparatorComponent={() => <View className="h-4" />}
+                showsVerticalScrollIndicator={false}
+                ListEmptyComponent={<Text className="py-4 text-sm font-sans-medium text-black/60">
+                  No subscriptions </Text>}
+                />   
       </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

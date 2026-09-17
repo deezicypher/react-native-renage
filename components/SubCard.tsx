@@ -1,9 +1,9 @@
-import { formatCurrency, formatSubscriptionDateTime } from '@/libs/utils'
+import { formatCurrency, formatStatusLabel, formatSubscriptionDateTime } from '@/libs/utils'
 import clsx from 'clsx'
 import { Image, Pressable, Text, View } from 'react-native'
 
 const SubCard = ({name, price,currency,icon, billing, color,
-    renewalDate, category, plan, onPress, expanded, paymentMethod
+    renewalDate, category, plan, onPress, expanded,status, paymentMethod,startDate
 }: SubscriptionCardProps) => {
   return (
     <Pressable className={clsx("rounded-2xl p-4 border border-border", expanded? "bg-subscription": "bg-card")}
@@ -39,8 +39,40 @@ const SubCard = ({name, price,currency,icon, billing, color,
                         <Text className="shrink-0 text-base font-sans-medium text-muted-foreground">
                             Payment:
                         </Text>
-                        <Text numberOfLines={1} ellipsizeMode="tail" className="flex-1 font-size-bold text-primary">
+                        <Text numberOfLines={1} ellipsizeMode="tail" className="flex-1 font-sans-bold text-primary">
                             {paymentMethod?.trim()}
+                        </Text>
+                    </View>
+                    <View className="flex-row items-center justify-between gap-3">
+                        <Text className="shrink-0 text-base font-sans-medium text-muted-foreground">
+                            Category:
+                        </Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" className="flex-1 font-sans-bold text-primary">
+                            {category?.trim()}
+                        </Text>
+                    </View>
+                    <View className="flex-row items-center justify-between gap-3">
+                        <Text className="shrink-0 text-base font-sans-medium text-muted-foreground">
+                            Started:
+                        </Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" className="flex-1 font-sans-bold text-primary">
+                    {startDate ? formatSubscriptionDateTime(startDate) : ''}
+                        </Text>
+                    </View>
+                    <View className="flex-row items-center justify-between gap-3">
+                        <Text className="shrink-0 text-base font-sans-medium text-muted-foreground">
+                            Renewal Date:
+                        </Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" className="flex-1 font-sans-bold text-primary">
+                            {renewalDate ? formatSubscriptionDateTime(renewalDate) : ''}
+                        </Text>
+                    </View>
+                    <View className="flex-row items-center justify-between gap-3">
+                        <Text className="shrink-0 text-base font-sans-medium text-muted-foreground">
+                            Status:
+                        </Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" className="flex-1 font-sans-bold text-primary">
+                            {status ? formatStatusLabel(status) : ''}
                         </Text>
                     </View>
                 </View>
