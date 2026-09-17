@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 /**
  * Format a value as U.S. currency (defaults to USD) with exactly two decimals.
  * Uses Intl.NumberFormat and falls back to a manual formatter on error.
@@ -27,4 +29,14 @@ export function formatCurrency(
   }
 }
 
-export default formatCurrency;
+export const formatSubscriptionDateTime = (value?: string): string => {
+  if (!value) return "Not provided";
+  const parsedDate = dayjs(value);
+  return parsedDate.isValid() ? parsedDate.format("MM/DD/YYYY") : "Not provided";
+};
+
+export const formatStatusLabel = (value?: string): string => {
+  if (!value) return "Unknown";
+  return value.charAt(0).toUpperCase() + value.slice(1);
+};
+

@@ -59,7 +59,7 @@
     @apply text-xl font-sans-medium text-white;
   }
 
-  .list-head {
+  .list-head { 
     @apply my-5 flex-row items-center justify-between;
   }
 

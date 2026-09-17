@@ -1,12 +1,18 @@
-import { HOME_BALANCE, HOME_USER } from "@/constants/data";
+import ListHeading from "@/components/ListHeading";
+import SubCard from "@/components/SubCard";
+import UpcomingSubCard from "@/components/UpcomingSubCard";
+import { HOME_BALANCE, HOME_SUBSCRIPTIONS, HOME_USER, UPCOMING_SUBSCRIPTIONS } from "@/constants/data";
 import { icons } from "@/constants/icons";
 import images from "@/constants/images";
-import formatCurrency from "@/libs/utils";
+import { formatCurrency } from "@/libs/utils";
 import dayjs from "dayjs";
-import { Image, Text, View } from "react-native";
+import { useState } from "react";
+import { FlatList, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+
+  const [expandedSubsriptionId, setExpandedSubscriptionId] = useState<string | null>(null);
   return (
     <SafeAreaView className="flex-1 p-5 bg-background">
       <View className="mb-2.5 flex-row items-center justify-between">
@@ -19,6 +25,9 @@ export default function Index() {
         <Image source={icons.add} className="size-12" />
       </View>
 
+    <ScrollView
+    showsVerticalScrollIndicator={false}
+    >
       <View className="my-2.5 min-h-52 justify-between gap-5 rounded-bl-4xl rounded-tr-4xl bg-accent p-6">
         <Text className="text-xl font-sans-semibold text-white/80">
           Balance
@@ -32,6 +41,30 @@ export default function Index() {
           </Text>
         </View>
       </View>
+
+      <View>
+        <ListHeading title="Upcoming"/>
+          <FlatList 
+            data={UPCOMING_SUBSCRIPTIONS}
+            renderItem= {({item}) => (
+              <UpcomingSubCard {...item} />
+            )}
+            keyExtractor={(item) => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            ListEmptyComponent={<Text className="py-4 text-sm font-sans-medium text-black/60">
+              No upcoming subscriptions </Text>}
+            />
+      
+        <ListHeading title="All Subscriptions"/>
+              <SubCard 
+              {...HOME_SUBSCRIPTIONS[0]} 
+              expanded={expandedSubsriptionId === HOME_SUBSCRIPTIONS[0].id}
+              onPress={() => setExpandedSubscriptionId(expandedSubsriptionId === HOME_SUBSCRIPTIONS[0].id ? null : HOME_SUBSCRIPTIONS[0].id)}
+              />
+                
+      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
