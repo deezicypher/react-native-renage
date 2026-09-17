@@ -15,7 +15,13 @@ export default function Index() {
   const [expandedSubsriptionId, setExpandedSubscriptionId] = useState<string | null>(null);
   return (
     <SafeAreaView className="flex-1 p-5 bg-background">
-      <View className="mb-2.5 flex-row items-center justify-between">
+      
+      
+  
+              <FlatList
+                ListHeaderComponent={() => (
+                  <>
+                  <View className="mb-2.5 flex-row items-center justify-between">
         <View className="flex-row items-center">
           <Image source={images.avatar} className="size-16 rounded-full" />
           <Text className="ml-4 text-2xl font-sans-bold text-primary">
@@ -25,9 +31,7 @@ export default function Index() {
         <Image source={icons.add} className="size-12" />
       </View>
 
-    <View
-
-    >
+ 
       <View className="my-2.5  min-h-52 justify-between gap-5 rounded-bl-4xl rounded-tr-4xl bg-accent p-6">
         <Text className="text-xl font-sans-semibold text-white/80">
           Balance
@@ -40,10 +44,14 @@ export default function Index() {
             {dayjs(HOME_BALANCE.nextRenewalDate).format("MM/DD")}
           </Text>
         </View>
+
+                      
       </View>
 
-      <View>
+   
+   <View className="mb-5">
         <ListHeading title="Upcoming"/>
+
           <FlatList 
             data={UPCOMING_SUBSCRIPTIONS}
             renderItem= {({item}) => (
@@ -55,9 +63,10 @@ export default function Index() {
             ListEmptyComponent={<Text className="py-4 text-sm font-sans-medium text-black/60">
               No upcoming subscriptions </Text>}
             />
-      
-        <ListHeading title="All Subscriptions"/>
-              <FlatList
+    </View>
+            <ListHeading title="All Subscriptions"/>
+                  </>
+                )}
                 data={HOME_SUBSCRIPTIONS}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
@@ -72,9 +81,10 @@ export default function Index() {
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={<Text className="py-4 text-sm font-sans-medium text-black/60">
                   No subscriptions </Text>}
+                contentContainerClassName="pb-30"
                 />   
-      </View>
-      </View>
+      
+
     </SafeAreaView>
   );
 }
